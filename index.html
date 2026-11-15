@@ -1,69 +1,361 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10121a"><title>ViralShorts AI</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10121a">
+<title>ViralShorts AI</title>
+
 <style>
-:root{color-scheme:dark;--bg:#10121a;--panel:#191d29;--muted:#aab1c2;--accent:#9b8cff;--line:#303748}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f6fb;font:16px system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:900px;margin:auto;padding:22px 16px 60px}.brand{font-weight:850;font-size:25px;letter-spacing:-.7px}.brand span{color:var(--accent)}
-.sub{color:var(--muted);margin:6px 0 22px}.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0}
-label{display:block;font-weight:700;margin-bottom:9px}input{width:100%;padding:15px;border-radius:12px;border:1px solid var(--line);background:#0f121b;color:white;font-size:16px}
-.row{display:flex;gap:10px;align-items:center;margin-top:12px}button,.btn{background:var(--accent);color:#10121a;border:0;border-radius:12px;padding:14px 18px;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block}
-button:disabled{opacity:.5}.hint,.muted{color:var(--muted);font-size:13px}.progress{height:9px;background:#303748;border-radius:9px;overflow:hidden;margin-top:14px}.bar{height:100%;width:0;background:var(--accent);transition:width .3s}
-.grid{display:grid;grid-template-columns:1fr;gap:14px}.card{margin:0}.top{display:flex;justify-content:space-between;gap:12px}.score{color:#b9afff;font-weight:800}.preview{width:100%;max-height:540px;object-fit:contain;background:#090a0f;border-radius:12px;margin:12px 0}
-.thumb{width:110px;aspect-ratio:9/16;object-fit:cover;border-radius:9px;float:right;margin:0 0 10px 12px}
-h2{font-size:19px;margin:0 0 8px}.meta{color:var(--muted);font-size:13px}.field{background:#111520;padding:11px;border-radius:10px;margin:8px 0;overflow-wrap:anywhere}.field b{display:block;color:#b9afff;font-size:12px;margin-bottom:4px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.secondary{background:#303748;color:white}.hidden{display:none}
-@media(min-width:700px){.grid{grid-template-columns:1fr 1fr}.panel{padding:24px}}
-</style></head><body><main>
-<div class="brand">ViralShorts <span>AI</span></div><p class="sub">Turn one long video into a ranked batch of vertical Shorts.</p>
+:root {
+  color-scheme: dark;
+  --bg:#10121a;
+  --panel:#191d29;
+  --muted:#aab1c2;
+  --accent:#9b8cff;
+  --line:#303748;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:#f5f6fb;
+  font:16px system-ui,-apple-system,Segoe UI,sans-serif;
+}
+main {max-width:900px;margin:auto;padding:22px 16px 60px}
+.brand {font-weight:850;font-size:25px;letter-spacing:-.7px}
+.brand span {color:var(--accent)}
+.sub {color:var(--muted);margin:6px 0 22px}
+.panel,.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  margin:14px 0;
+}
+label {display:block;font-weight:700;margin-bottom:9px}
+input {
+  width:100%;padding:15px;border-radius:12px;
+  border:1px solid var(--line);
+  background:#0f121b;color:white;font-size:16px;
+}
+.row {display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+button,.btn {
+  background:var(--accent);color:#10121a;border:0;
+  border-radius:12px;padding:14px 18px;font-weight:800;
+  font-size:15px;cursor:pointer;text-decoration:none;
+  display:inline-block;
+}
+button:disabled {opacity:.5}
+.hint,.muted {color:var(--muted);font-size:13px}
+.progress {
+  height:9px;background:#303748;border-radius:9px;
+  overflow:hidden;margin-top:14px;
+}
+.bar {height:100%;width:0;background:var(--accent);transition:width .3s}
+.grid {display:grid;grid-template-columns:1fr;gap:14px}
+.card {margin:0}
+.top {display:flex;justify-content:space-between;gap:12px}
+.score {color:#b9afff;font-weight:800}
+.preview {
+  width:100%;max-height:540px;object-fit:contain;
+  background:#090a0f;border-radius:12px;margin:12px 0;
+}
+.thumb {
+  width:110px;aspect-ratio:9/16;object-fit:cover;
+  border-radius:9px;float:right;margin:0 0 10px 12px;
+}
+h2 {font-size:19px;margin:0 0 8px}
+.meta {color:var(--muted);font-size:13px}
+.field {
+  background:#111520;padding:11px;border-radius:10px;
+  margin:8px 0;overflow-wrap:anywhere;
+}
+.field b {display:block;color:#b9afff;font-size:12px;margin-bottom:4px}
+.actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.secondary {background:#303748;color:white}
+.hidden {display:none}
+.error {color:#ff9999}
+@media(min-width:700px) {
+  .grid {grid-template-columns:1fr 1fr}
+  .panel {padding:24px}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<div class="brand">ViralShorts <span>AI</span></div>
+<p class="sub">Turn one long video into a ranked batch of vertical Shorts.</p>
+
 <section class="panel">
-<label for="url">Paste your YouTube video link</label>
-<input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="url">
-<div class="row"><button id="go">Analyze & Create Shorts</button><span class="hint">15–45 sec · 9:16 · MP4</span></div>
-<p class="hint">Only process videos you own or have permission to download and edit. Video rendering happens on the server.</p>
-<div id="status" class="hidden"><p id="message">Starting…</p><div class="progress"><div id="bar" class="bar"></div></div></div>
+  <label for="url">Paste your YouTube video link</label>
+
+  <input
+    id="url"
+    type="url"
+    placeholder="https://www.youtube.com/watch?v=..."
+    autocomplete="url"
+  >
+
+  <div class="row">
+    <button id="go">Analyze & Create Shorts</button>
+    <span class="hint">15–45 sec · 9:16 · MP4</span>
+  </div>
+
+  <p class="hint">
+    Only process videos you own or have permission to download and edit.
+    Video rendering happens on the server.
+  </p>
+
+  <div id="status" class="hidden">
+    <p id="message">Starting...</p>
+    <div class="progress">
+      <div id="bar" class="bar"></div>
+    </div>
+  </div>
 </section>
-<div id="summary" class="hidden panel"></div><div id="results" class="grid"></div>
+
+<div id="summary" class="hidden panel"></div>
+<div id="results" class="grid"></div>
+
 </main>
+
 <script>
-const $=id=>document.getElementById(id);let timer=null;
-$("go").onclick=async()=>{
- const url=$("url").value.trim(); if(!url){alert("Paste a YouTube URL first.");return}
- $("go").disabled=true;$("results").innerHTML="";$("summary").classList.add("hidden");$("status").classList.remove("hidden");
- $("message").textContent="Creating job…";$("bar").style.width="2%";
- try{
-  const r=await fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url,max_shorts:30})});
-  const d=await r.json();if(!r.ok)throw new Error(d.detail||"Could not start job");
-  poll(d.job);
- }catch(e){$("message").textContent="Error: "+e.message;$("go").disabled=false}
+const API_BASE = "https://viralshorts-ai-z6ch.onrender.com";
+
+const $ = id => document.getElementById(id);
+
+let timer = null;
+let activeJob = null;
+
+function backendUrl(path) {
+  return API_BASE + path;
+}
+
+async function getJson(url, options = {}) {
+  const response = await fetch(url, options);
+  const text = await response.text();
+
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(
+      "Backend returned an invalid response. Check whether Render is running."
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(data.detail || data.message || "Request failed");
+  }
+
+  return data;
+}
+
+$("go").onclick = async () => {
+  const url = $("url").value.trim();
+
+  if (!url) {
+    alert("Paste a YouTube URL first.");
+    return;
+  }
+
+  clearTimeout(timer);
+
+  $("go").disabled = true;
+  $("results").innerHTML = "";
+  $("summary").classList.add("hidden");
+  $("status").classList.remove("hidden");
+
+  $("message").textContent = "Connecting to server...";
+  $("bar").style.width = "2%";
+
+  try {
+    const data = await getJson(backendUrl("/api/analyze"), {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        url: url,
+        max_shorts: 30
+      })
+    });
+
+    activeJob = data.job;
+
+    if (!activeJob) {
+      throw new Error("Server did not return a job ID.");
+    }
+
+    $("message").textContent = "Job started. Processing video...";
+    poll(activeJob);
+
+  } catch (error) {
+    showError(error.message);
+  }
 };
-async function poll(job){
- try{
-  const r=await fetch("/api/status/"+job),s=await r.json();
-  $("message").textContent=s.message||s.state;$("bar").style.width=(s.progress||0)+"%";
-  if(s.state==="complete"){clearInterval(timer);$("go").disabled=false;load(job);return}
-  if(s.state==="error"){clearInterval(timer);$("go").disabled=false;return}
-  timer=setTimeout(()=>poll(job),1800);
- }catch(e){$("message").textContent="Status check failed: "+e.message;$("go").disabled=false}
+
+async function poll(job) {
+  try {
+    const status = await getJson(
+      backendUrl("/api/status/" + encodeURIComponent(job))
+    );
+
+    $("message").textContent =
+      status.message || status.state || "Processing...";
+
+    $("bar").style.width = (status.progress || 0) + "%";
+
+    if (status.state === "complete") {
+      $("go").disabled = false;
+      await loadResults(job);
+      return;
+    }
+
+    if (status.state === "error") {
+      showError(status.message || "Video processing failed.");
+      return;
+    }
+
+    timer = setTimeout(() => poll(job), 2500);
+
+  } catch (error) {
+    showError(error.message);
+  }
 }
-async function load(job){
- const r=await fetch("/api/results/"+job),items=await r.json();
- $("summary").classList.remove("hidden");$("summary").innerHTML=`<h2>${items.length} Shorts created</h2><p class="muted">Ranked by estimated editorial potential. Scores are not guaranteed view predictions.</p><a class="btn" href="/files/${job}/all_shorts.zip">Download all Shorts + thumbnails (ZIP)</a>`;
- $("results").innerHTML=items.map(x=>`
- <article class="card">
- <div class="top"><h2>Short #${x.id}</h2><span class="score">${x.score}/100</span></div>
- <div class="meta">${x.duration}s · ${x.start}s–${x.end}s</div>
- <video class="preview" controls playsinline preload="metadata" src="${x.video}"></video>
- <img class="thumb" src="${x.thumbnail}" alt="9:16 thumbnail">
- <a class="btn" href="${x.video}" download>Download MP4</a>
- <a class="btn secondary" href="${x.thumbnail}" download>Thumbnail</a>
- <div style="clear:both"></div>
- <div class="field"><b>TITLE</b>${esc(x.title)}</div>
- <div class="field"><b>DESCRIPTION</b>${esc(x.description)}</div>
- <div class="field"><b>TAGS</b>${esc(x.tags)}</div>
- <div class="field"><b>ON-SCREEN HOOK</b>${esc(x.hook)}</div>
- <div class="actions"><button class="secondary" onclick="copyText(${JSON.stringify(x.title)})">Copy title</button><button class="secondary" onclick="copyText(${JSON.stringify(x.description)})">Copy description</button><button class="secondary" onclick="copyText(${JSON.stringify(x.tags)})">Copy tags</button></div>
- </article>`).join("");
+
+async function loadResults(job) {
+  try {
+    const items = await getJson(
+      backendUrl("/api/results/" + encodeURIComponent(job))
+    );
+
+    $("summary").classList.remove("hidden");
+
+    $("summary").innerHTML = `
+      <h2>${items.length} Shorts created</h2>
+      <p class="muted">
+        Ranked by estimated editorial potential.
+        Scores are not guaranteed view predictions.
+      </p>
+      <a class="btn" href="${backendUrl("/files/" + job + "/all_shorts.zip")}" target="_blank">
+        Download all Shorts + thumbnails (ZIP)
+      </a>
+    `;
+
+    if (!items.length) {
+      $("results").innerHTML =
+        "<p>No suitable clips were found in this video.</p>";
+      return;
+    }
+
+    $("results").innerHTML = items.map(x => {
+      const video = backendUrl(x.video);
+      const thumbnail = backendUrl(x.thumbnail);
+
+      return `
+        <article class="card">
+
+          <div class="top">
+            <h2>Short #${x.id}</h2>
+            <span class="score">${x.score}/100</span>
+          </div>
+
+          <div class="meta">
+            ${x.duration}s · ${x.start}s–${x.end}s
+          </div>
+
+          <video
+            class="preview"
+            controls
+            playsinline
+            preload="metadata"
+            src="${video}">
+          </video>
+
+          <img
+            class="thumb"
+            src="${thumbnail}"
+            alt="Short thumbnail"
+          >
+
+          <a class="btn" href="${video}" download>
+            Download MP4
+          </a>
+
+          <a class="btn secondary" href="${thumbnail}" download>
+            Thumbnail
+          </a>
+
+          <div style="clear:both"></div>
+
+          <div class="field">
+            <b>TITLE</b>${esc(x.title)}
+          </div>
+
+          <div class="field">
+            <b>DESCRIPTION</b>${esc(x.description)}
+          </div>
+
+          <div class="field">
+            <b>TAGS</b>${esc(x.tags)}
+          </div>
+
+          <div class="field">
+            <b>ON-SCREEN HOOK</b>${esc(x.hook)}
+          </div>
+
+          <div class="actions">
+            <button class="secondary" onclick="copyText(${JSON.stringify(x.title)})">
+              Copy title
+            </button>
+
+            <button class="secondary" onclick="copyText(${JSON.stringify(x.description)})">
+              Copy description
+            </button>
+
+            <button class="secondary" onclick="copyText(${JSON.stringify(x.tags)})">
+              Copy tags
+            </button>
+          </div>
+
+        </article>
+      `;
+    }).join("");
+
+    $("message").textContent = "Finished! Your Shorts are ready.";
+    $("bar").style.width = "100%";
+
+  } catch (error) {
+    showError(error.message);
+  }
 }
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function copyText(t){navigator.clipboard.writeText(t).then(()=>alert("Copied"))}
-</script></body></html>
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => alert("Copied"))
+    .catch(() => alert("Could not copy. Please select the text manually."));
+}
+
+function showError(message) {
+  clearTimeout(timer);
+  $("message").textContent = "Error: " + message;
+  $("message").classList.add("error");
+  $("go").disabled = false;
+}
+</script>
+
+</body>
+</html>
